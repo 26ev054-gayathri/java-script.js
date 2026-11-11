@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scholarship Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f7fc;
+            color: #263451;
+        }
+
+        header {
+            background: #172554;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h2 {
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            color: #f5b942;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #172554, #4267dc);
+            color: white;
+            text-align: center;
+            padding: 90px 20px;
+        }
+
+        .hero h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            background: #ffffff;
+            color: #2444b4;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        section {
+            padding: 55px 8%;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #172554;
+        }
+
+        .search {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search input,
+        .search select {
+            padding: 12px;
+            margin: 8px;
+            width: 220px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .card h3 {
+            color: #3157d5;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .card button {
+            background: #3157d5;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        .card button:hover {
+            background: #172554;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .step {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .step h3 {
+            color: #3157d5;
+            margin-bottom: 10px;
+        }
+
+        .application {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px #00000012;
+        }
+
+        .application input,
+        .application select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .application button {
+            width: 100%;
+            padding: 12px;
+            background: #3157d5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #172554;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        @media(max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 5px;
+                font-size: 14px;
+            }
+
+            .hero h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h2>ScholarBridge</h2>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#scholarships">Scholarships</a>
+            <a href="#steps">How It Works</a>
+            <a href="#apply">Apply</a>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <h1>Scholarship Management System</h1>
+
+        <p>
+            Find the right scholarship and make your
+            educational dreams come true.
+        </p>
+
+        <a href="#scholarships" class="btn">
+            Explore Scholarships
+        </a>
+    </section>
+
+    <section id="scholarships">
+
+        <h2>Available Scholarships</h2>
+
+        <div class="search">
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search scholarships..."
+                onkeyup="searchScholarships()">
+
+            <select id="category" onchange="searchScholarships()">
+                <option value="all">All Categories</option>
+                <option value="Merit">Merit Based</option>
+                <option value="Need">Need Based</option>
+                <option value="Government">Government</option>
+            </select>
+        </div>
+
+        <div class="cards" id="scholarshipList">
+
+            <div class="card" data-category="Merit">
+                <h3>National Merit Scholarship</h3>
+                <p>For students with excellent academic performance.</p>
+                <p><b>Category:</b> Merit Based</p>
+                <p><b>Amount:</b> Varies</p>
+                <button onclick="apply('National Merit Scholarship')">
+                    Apply Now
+                </button>
+            </div>
+
+            <div class="card" data-category="Need">
+                <h3>Student Support Scholarship</h3>
+                <p>Financial support for students from low-income families.</p>
+                <p><b>Category:</b> Need Based</p>
+                <p><b>Amount:</b> Varies</p>
+                <button onclick="apply('Student Support Scholarship')">
+                    Apply Now
+                </button>
+            </div>
+
+            <div class="card" data-category="Government">
+                <h3>Government Education Scholarship</h3>
+                <p>Educational assistance through government schemes.</p>
+                <p><b>Category:</b> Government</p>
+                <p><b>Amount:</b> As per scheme</p>
+                <button onclick="apply('Government Education Scholarship')">
+                    Apply Now
+                </button>
+            </div>
+
+        </div>
+
+        <p id="noResults" style="display:none;text-align:center;margin-top:25px;">
+            No scholarships found.
+        </p>
+
+    </section>
+
+    <section id="steps" style="background:#eaf0ff;">
+
+        <h2>How It Works</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <h3>1. Register</h3>
+                <p>Create your student profile.</p>
+            </div>
+
+            <div class="step">
+                <h3>2. Search</h3>
+                <p>Find scholarships based on your eligibility.</p>
+            </div>
+
+            <div class="step">
+                <h3>3. Apply</h3>
+                <p>Complete your scholarship application.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="apply">
+
+        <h2>Student Application Form</h2>
+
+        <div class="application">
+
+            <form id="applicationForm">
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter Student Name"
+                    required>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter Email Address"
+                    required>
+
+                <input
+                    type="text"
+                    id="course"
+                    placeholder="Enter Your Course"
+                    required>
+
+                <select id="selectedScholarship" required>
+                    <option value="">Select Scholarship</option>
+                    <option>National Merit Scholarship</option>
+                    <option>Student Support Scholarship</option>
+                    <option>Government Education Scholarship</option>
+                </select>
+
+                <button type="submit">Submit Application</button>
+
+            </form>
+
+            <p id="message" style="text-align:center;margin-top:15px;"></p>
+
+        </div>
+
+    </section>
+
+    <footer>
+        <p>© 2026 ScholarBridge | Student Scholarship Management System</p>
+        <p>Education is the key to success.</p>
+    </footer>
+
+    <script>
+
+        function searchScholarships() {
+
+            let input = document
+                .getElementById("searchInput")
+                .value.toLowerCase();
+
+            let category = document
+                .getElementById("category")
+                .value;
+
+            let cards = document.querySelectorAll(".card");
+            let count = 0;
+
+            cards.forEach(function(card) {
+
+                let title = card.querySelector("h3")
+                    .innerText.toLowerCase();
+
+                let cardCategory = card.dataset.category;
+
+                let nameMatch = title.includes(input);
+
+                let categoryMatch =
+                    category === "all" ||
+                    cardCategory === category;
+
+                if (nameMatch && categoryMatch) {
+                    card.style.display = "block";
+                    count++;
+                } else {
+                    card.style.display = "none";
+                }
+
+            });
+
+            document.getElementById("noResults").style.display =
+                count === 0 ? "block" : "none";
+        }
+
+        function apply(scholarshipName) {
+
+            document.getElementById("selectedScholarship").value =
+                scholarshipName;
+
+            document.getElementById("apply").scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+        document.getElementById("applicationForm")
+            .addEventListener("submit", function(event) {
+
+                event.preventDefault();
+
+                let name = document.getElementById("name").value;
+
+                document.getElementById("message").innerHTML =
+                    "Thank you, " + name +
+                    "! Your demo application has been submitted.";
+
+                this.reset();
+
+            });
+
+    </script>
+
+</body>
+</html>
